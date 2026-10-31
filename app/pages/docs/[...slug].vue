@@ -49,6 +49,10 @@ const downloadMarkdown = async () => {
   URL.revokeObjectURL(url)
 }
 
+<<<<<<< HEAD
+=======
+definePageMeta({ layout: 'docs'})
+>>>>>>> d84b676 (New)
 </script>
 
 <template>

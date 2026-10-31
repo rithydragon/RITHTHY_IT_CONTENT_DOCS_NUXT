@@ -11,9 +11,12 @@
     "lint": "eslint .",
     "typecheck": "nuxt typecheck"
   },
+<<<<<<< HEAD
   "engines": {
     "node": ">=24 <25"
   },
+=======
+>>>>>>> d84b676 (New)
   "dependencies": {
     "@ai-sdk/gateway": "^4.0.19",
     "@ai-sdk/google": "^4.0.16",

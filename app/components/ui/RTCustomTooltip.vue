@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div ref="wrapperEl" class="rt-tooltip-wrapper" @mouseenter="show" @mouseleave="onTriggerLeave">
     <div
       ref="wrapperEl"
@@ -7,6 +8,18 @@
       @mouseleave="onTriggerLeave"
       > <slot />
     </div>
+=======
+  <div
+    ref="wrapperEl"
+    class="rt-tooltip-wrapper"
+    @mouseenter="trigger === 'hover' ? onTriggerEnter() : null"
+    @mouseleave="trigger === 'hover' ? onTriggerLeave() : null"
+    @click="trigger === 'click' ? toggle() : null"
+  >
+    <slot name="trigger">
+      <slot />
+    </slot>
+>>>>>>> d84b676 (New)
     <Teleport to="body">
       <Transition name="tooltip">
         <div
@@ -18,8 +31,23 @@
           @mouseenter="onTooltipEnter"
           @mouseleave="onTooltipLeave"
         >
+<<<<<<< HEAD
           <!-- Simple label tooltip -->
           <template v-if="!children || children.length === 0">
+=======
+          <!-- <slot>
+            <span class="rt-tooltip__label">
+              {{ text }}
+            </span>
+          </slot> -->
+                    <!-- Custom slot content -->
+          <template v-if="$slots.content">
+            <slot name="content" />
+          </template>
+
+          <!-- Simple label tooltip -->
+          <template v-if=" !children || children.length === 0">
+>>>>>>> d84b676 (New)
             <span class="rt-tooltip__label">{{ text }}</span>
           </template>
 
@@ -27,6 +55,7 @@
           <template v-else>
             <div class="rt-tooltip__menu">
               <p class="rt-tooltip__menu-title">{{ text }}</p>
+<<<<<<< HEAD
               <RLink
                 v-for="child in children"
                 :key="child.key"
@@ -36,6 +65,17 @@
               >
                 {{ child.label }}
               </RLink>
+=======
+              <NuxtLink
+                v-for="child in children"
+                :key="child.key"
+                :to="localePath(child.to)"
+                class="rt-tooltip__menu-item"
+                @click="hide"
+              >
+                {{ tr(child.label) }}
+              </NuxtLink>
+>>>>>>> d84b676 (New)
             </div>
           </template>
         </div>
@@ -44,6 +84,7 @@
   </div>
 </template>
 <script setup lang="ts">
+<<<<<<< HEAD
 import type { MenuItem } from '~/types/navigation'
 
 const props = defineProps<{
@@ -51,6 +92,31 @@ const props = defineProps<{
   children?: MenuItem[]
 }>()
 
+=======
+const { tr } = useTr()
+import type { MenuItem } from '~/types/navigation'
+
+// Was referenced in the template (`localePath(child.to)`) but never defined —
+// that's a ReferenceError the instant any tooltip with `children` renders.
+// Matches the same no-prefix fallback used in AppSidebar.vue.
+const localePath = (path?: string) => path ?? '/'
+
+const props = withDefaults(
+  defineProps<{
+    text?: string,
+    children?: MenuItem[],
+    width?: string
+    trigger?: 'hover' | 'click'
+    positions?: ('top' | 'bottom' | 'left' | 'right')[]
+    isCollapsible?: boolean
+  }>(),
+  {
+    trigger: 'hover',
+    positions: () => ['right'],
+    isCollapsible: true
+  }
+)
+>>>>>>> d84b676 (New)
 const visible = ref(false)
 
 const tooltipEl = ref<HTMLElement | null>(null)
@@ -79,11 +145,50 @@ const updatePosition = () => {
 
   const rect = wrapperEl.value.getBoundingClientRect()
 
+<<<<<<< HEAD
   tooltipStyle.value = {
     top: `${rect.top + rect.height / 2}px`,
     left: `${rect.right + 10}px`,
     transform: 'translateY(-50%)'
   }
+=======
+  const position = props.positions[0]
+
+  const style: Record<string, string> = {
+    position: 'fixed'
+  }
+
+  switch (position) {
+    case 'bottom':
+      style.top = `${rect.bottom + 10}px`
+      style.left = `${rect.left + rect.width / 2}px`
+      style.transform = 'translateX(-50%)'
+      break
+
+    case 'left':
+      style.top = `${rect.top + rect.height / 2}px`
+      style.left = `${rect.left - 10}px`
+      style.transform = 'translate(-100%, -50%)'
+      break
+
+    case 'top':
+      style.top = `${rect.top - 10}px`
+      style.left = `${rect.left + rect.width / 2}px`
+      style.transform = 'translate(-50%, -100%)'
+      break
+
+    default:
+      style.top = `${rect.top + rect.height / 2}px`
+      style.left = `${rect.right + 10}px`
+      style.transform = 'translateY(-50%)'
+  }
+
+  if (props.width) {
+    style.width = props.width
+  }
+
+  tooltipStyle.value = style
+>>>>>>> d84b676 (New)
 }
 
 const show = async () => {
@@ -108,7 +213,11 @@ const hide = () => {
 
 const onTriggerEnter = () => {
   isHoveringTrigger.value = true
+<<<<<<< HEAD
   show()
+=======
+  if(!props.isCollapsible) return show()
+>>>>>>> d84b676 (New)
 }
 
 const onTriggerLeave = () => {
@@ -121,6 +230,13 @@ const onTriggerLeave = () => {
 
   hide()
 }
+<<<<<<< HEAD
+=======
+const toggle = () => {
+  visible.value ? hide() : show()
+}
+
+>>>>>>> d84b676 (New)
 
 const onTooltipEnter = () => {
   isHoveringTooltip.value = true
@@ -131,6 +247,10 @@ const onTooltipLeave = () => {
   isHoveringTooltip.value = false
   hide()
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> d84b676 (New)
 </script>
 
 <style lang="scss">
@@ -214,4 +334,8 @@ const onTooltipLeave = () => {
   opacity: 0;
   transform: translateY(-50%) translateX(-6px) !important;
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> d84b676 (New)
