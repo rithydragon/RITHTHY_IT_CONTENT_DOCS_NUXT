@@ -49,7 +49,6 @@ const downloadMarkdown = async () => {
   URL.revokeObjectURL(url)
 }
 
-definePageMeta({ layout: 'docs'})
 </script>
 
 <template>

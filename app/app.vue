@@ -1,13 +1,14 @@
+
 <template>
   <UApp :toaster="toaster">
     <NuxtLoadingIndicator color="gold" />
+
     <InternetNetworkStatus />
-    <PrintPreviewModal />
-    <RConfirm />
     <RToast />
+
     <div
       id="app"
-      class="bg-default"
+      class="app-root bg-default"
       vaul-drawer-wrapper
       data-vaul-drawer-wrapper
     >
@@ -20,63 +21,94 @@
 
 <script setup lang="ts">
 const { locale } = useI18n();
+const colorMode = useColorMode();
 
-// Watch locale and update HTML lang attribute
-watch(
-  locale,
-  (val) => {
-    if (val) document.documentElement.lang = val;
+// ----------------------------------------
+// App configuration
+// ----------------------------------------
+
+const toaster = {
+  component: "UToaster",
+  options: {
+    timeout: 3000,
+    max: 3,
   },
+};
+
+// ----------------------------------------
+// Theme
+// ----------------------------------------
+
+const themeColor = computed(() =>
+  colorMode.value === "dark" ? "#09090b" : "#ffffff",
 );
 
-const appConfig = useAppConfig();
+// ----------------------------------------
+// Text direction
+// ----------------------------------------
 
-// Global keyboard shortcuts using nuxt app shortcuts
+const textDirection = useTextDirection({
+  initialValue: "ltr",
+});
+
+const direction = computed(() => textDirection.value);
+
+// ----------------------------------------
+// Keyboard shortcuts
+// ----------------------------------------
+
 defineShortcuts({
   "G-H": () => navigateTo("/"),
   "G-E": () => navigateTo("/email"),
 });
 
-// Text direction for Reka UI
-const textDirection = useTextDirection({ initialValue: "ltr" });
-const dir = computed(() => (textDirection.value === "rtl" ? "rtl" : "ltr"));
-const colorMode = useColorMode();
-const color = computed(() =>
-  colorMode.value === "dark" ? "#09090b" : "#ffffff",
-);
-const { theme } = useAppSettings();
-// Set HTML language attribute from i18n locale
+// ----------------------------------------
+// SEO & document metadata
+// ----------------------------------------
+
 useHead({
   htmlAttrs: {
     lang: locale,
+    dir: direction,
   },
+
   meta: [
     { charset: "utf-8" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { key: "theme-color", name: "theme-color", content: color },
+    {
+      name: "viewport",
+      content: "width=device-width, initial-scale=1",
+    },
+    {
+      name: "theme-color",
+      content: themeColor,
+    },
   ],
-  link: [{ rel: "icon", href: "/favicon.ico" }],
+
+  link: [
+    {
+      rel: "icon",
+      href: "/favicon.ico",
+    },
+  ],
+
   bodyAttrs: {
-    class: computed(
-      () =>
-        `color-${theme.value?.color || "default"} theme-${theme.value?.type || "default"}`,
-    ),
+    class: "color-default theme-default",
   },
 });
-
-const toaster = { 
-  component: 'UToaster', 
-  options: {
-    timeout: 3000, 
-    max: 3
-  }
-}
 </script>
 
 <style lang="scss">
+.app-root {
+  min-height: 100vh;
+}
+
+// ----------------------------------------
+// Reka UI Toast
+// ----------------------------------------
+
 .r-toast {
-  li[role='alert'] {
-    background: red !important;
+  li[role="alert"] {
+    background: var(--toast-bg);
   }
 }
 
@@ -85,34 +117,45 @@ const toaster = {
 }
 
 .r-toast-description {
-  color: #d1d5db;
+  color: var(--toast-description);
 }
 
 .r-toast-close {
-  color: #fff;
+  color: var(--toast-text);
 }
 
-[data-slot='toast'] {
-  border-radius: 16px !important;
-  background: #1f2937 !important;
-  color: #fff !important;
-  border: 1px solid #374151 !important;
-  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2);
+// ----------------------------------------
+// Global toast styling
+// ----------------------------------------
 
-  [data-slot='toast-title'] {
+:root {
+  --toast-bg: #1f2937;
+  --toast-text: #fff;
+  --toast-description: #d1d5db;
+  --toast-border: #374151;
+}
+
+[data-slot="toast"] {
+  border: 1px solid var(--toast-border);
+  border-radius: 16px;
+  background: var(--toast-bg);
+  color: var(--toast-text);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 20%);
+
+  [data-slot="toast-title"] {
+    color: var(--toast-text);
     font-weight: 700;
-    color: #fff;
   }
 
-  [data-slot='toast-description'] {
-    color: #d1d5db;
+  [data-slot="toast-description"] {
+    color: var(--toast-description);
   }
 
   button {
-    color: #fff;
+    color: var(--toast-text);
 
     &:hover {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgb(255 255 255 / 8%);
     }
   }
 }

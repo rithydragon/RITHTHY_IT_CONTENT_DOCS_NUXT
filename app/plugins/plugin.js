@@ -3,7 +3,6 @@ import isEmpty from "../utils/isEmpty";
 import isNotEmpty from "../utils/isNotEmpty";
 import tBy from "../utils/tBy";
 import { rtydate } from "../utils/rtydate";
-import { formatPhoneNumber } from "../utils/phoneNumberFornat";
 import { convertToKhmerDate } from "../utils/dataConvert";
 import getUrl from "../utils/getUrl";
 import helper from "../utils/helper";
@@ -22,7 +21,6 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.provide("isEmpty", isEmpty);
   nuxtApp.provide("isNotEmpty", isNotEmpty);
   nuxtApp.provide("tBy", tBy);
-  nuxtApp.provide("rtyPhoneNumberFormat", formatPhoneNumber);
   nuxtApp.provide("rtydate", rtydate);
   nuxtApp.provide("getUrl", getUrl);
   nuxtApp.provide("helper", helper);

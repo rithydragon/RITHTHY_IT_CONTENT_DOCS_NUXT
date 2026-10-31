@@ -1,14 +1,12 @@
 <template>
-  <div
-    ref="wrapperEl"
-    class="rt-tooltip-wrapper"
-    @mouseenter="trigger === 'hover' ? onTriggerEnter() : null"
-    @mouseleave="trigger === 'hover' ? onTriggerLeave() : null"
-    @click="trigger === 'click' ? toggle() : null"
-  >
-    <slot name="trigger">
-      <slot />
-    </slot>
+  <div ref="wrapperEl" class="rt-tooltip-wrapper" @mouseenter="show" @mouseleave="onTriggerLeave">
+    <div
+      ref="wrapperEl"
+      class="rt-tooltip-wrapper"
+      @mouseenter="onTriggerEnter"
+      @mouseleave="onTriggerLeave"
+      > <slot />
+    </div>
     <Teleport to="body">
       <Transition name="tooltip">
         <div
@@ -20,18 +18,8 @@
           @mouseenter="onTooltipEnter"
           @mouseleave="onTooltipLeave"
         >
-          <!-- <slot>
-            <span class="rt-tooltip__label">
-              {{ text }}
-            </span>
-          </slot> -->
-                    <!-- Custom slot content -->
-          <template v-if="$slots.content">
-            <slot name="content" />
-          </template>
-
           <!-- Simple label tooltip -->
-          <template v-if=" !children || children.length === 0">
+          <template v-if="!children || children.length === 0">
             <span class="rt-tooltip__label">{{ text }}</span>
           </template>
 
@@ -39,15 +27,15 @@
           <template v-else>
             <div class="rt-tooltip__menu">
               <p class="rt-tooltip__menu-title">{{ text }}</p>
-              <NuxtLink
+              <RLink
                 v-for="child in children"
                 :key="child.key"
-                :to="localePath(child.to)"
+                :to="child.to"
                 class="rt-tooltip__menu-item"
                 @click="hide"
               >
-                {{ tr(child.label) }}
-              </NuxtLink>
+                {{ child.label }}
+              </RLink>
             </div>
           </template>
         </div>
@@ -56,29 +44,13 @@
   </div>
 </template>
 <script setup lang="ts">
-const { tr } = useTr()
 import type { MenuItem } from '~/types/navigation'
 
-// Was referenced in the template (`localePath(child.to)`) but never defined —
-// that's a ReferenceError the instant any tooltip with `children` renders.
-// Matches the same no-prefix fallback used in AppSidebar.vue.
-const localePath = (path?: string) => path ?? '/'
+const props = defineProps<{
+  text: string
+  children?: MenuItem[]
+}>()
 
-const props = withDefaults(
-  defineProps<{
-    text?: string,
-    children?: MenuItem[],
-    width?: string
-    trigger?: 'hover' | 'click'
-    positions?: ('top' | 'bottom' | 'left' | 'right')[]
-    isCollapsible?: boolean
-  }>(),
-  {
-    trigger: 'hover',
-    positions: () => ['right'],
-    isCollapsible: true
-  }
-)
 const visible = ref(false)
 
 const tooltipEl = ref<HTMLElement | null>(null)
@@ -107,42 +79,11 @@ const updatePosition = () => {
 
   const rect = wrapperEl.value.getBoundingClientRect()
 
-  const position = props.positions[0]
-
-  const style: Record<string, string> = {
-    position: 'fixed'
+  tooltipStyle.value = {
+    top: `${rect.top + rect.height / 2}px`,
+    left: `${rect.right + 10}px`,
+    transform: 'translateY(-50%)'
   }
-
-  switch (position) {
-    case 'bottom':
-      style.top = `${rect.bottom + 10}px`
-      style.left = `${rect.left + rect.width / 2}px`
-      style.transform = 'translateX(-50%)'
-      break
-
-    case 'left':
-      style.top = `${rect.top + rect.height / 2}px`
-      style.left = `${rect.left - 10}px`
-      style.transform = 'translate(-100%, -50%)'
-      break
-
-    case 'top':
-      style.top = `${rect.top - 10}px`
-      style.left = `${rect.left + rect.width / 2}px`
-      style.transform = 'translate(-50%, -100%)'
-      break
-
-    default:
-      style.top = `${rect.top + rect.height / 2}px`
-      style.left = `${rect.right + 10}px`
-      style.transform = 'translateY(-50%)'
-  }
-
-  if (props.width) {
-    style.width = props.width
-  }
-
-  tooltipStyle.value = style
 }
 
 const show = async () => {
@@ -167,7 +108,7 @@ const hide = () => {
 
 const onTriggerEnter = () => {
   isHoveringTrigger.value = true
-  if(!props.isCollapsible) return show()
+  show()
 }
 
 const onTriggerLeave = () => {
@@ -180,10 +121,6 @@ const onTriggerLeave = () => {
 
   hide()
 }
-const toggle = () => {
-  visible.value ? hide() : show()
-}
-
 
 const onTooltipEnter = () => {
   isHoveringTooltip.value = true
@@ -194,7 +131,6 @@ const onTooltipLeave = () => {
   isHoveringTooltip.value = false
   hide()
 }
-
 </script>
 
 <style lang="scss">

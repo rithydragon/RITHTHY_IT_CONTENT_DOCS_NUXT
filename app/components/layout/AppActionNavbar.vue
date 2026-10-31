@@ -15,46 +15,16 @@
       <!-- Dynamic Page Header -->
       <div class="flex items-center gap-3">
         <div
-          v-if="pageIcon"
           class="flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-lg"
-          :class="pageIconBg"
         >
-          <i :class="pageIcon" class="text-xl text-[var(--c-text)]" />
+          <i class="ri-home-line text-xl text-[var(--c-text)]" />
         </div>
 
         <div class="flex gap-0.5 min-w-0 flex-col">
-          <h5 class="text-[10px] font-bold leading-5">
-            {{ tr(pageTitle) }} {{ tr(pageDescription) }}
-          </h5>
-          <div v-if="isDashboard" class="action-group">
-            <span
-              v-if="daysLeft !== null"
-              class="countdown-badge"
-              :class="daysLeft <= 7 ? 'urgent' : ''"
-            >
-              <i class="ri-calendar-event-line" />
-              {{
-                daysLeft > 0
-                  ? tBy({
-                      en: `${daysLeft} days to wedding`,
-                      km: `${daysLeft} ថ្ងៃទៀតដល់ពិធី`,
-                    })
-                  : daysLeft === 0
-                    ? tBy({
-                        en: "Wedding day! 🎉",
-                        km: "ថ្ងៃពិធីមហាមង្គល! 🎉",
-                      })
-                    : tBy({
-                        en: `${Math.abs(daysLeft)} days ago`,
-                        km: `កន្លងទៅ ${Math.abs(daysLeft)} ថ្ងៃ`,
-                      })
-              }}
-            </span>
-            <span v-if="liveStats" class="live-chip">
-              <span class="live-dot-sm" />
-              Live · {{ lastUpdatedLabel }}
-            </span>
-          </div>
+          <span class="countdown-badge">
+            <i class="ri-calendar-event-line" />
+            {{ $t("docs.name") }}
+          </span>
         </div>
       </div>
     </div>
@@ -81,71 +51,14 @@
 
       <!-- Language -->
       <LanguageSwitcher />
-
-      <!-- Profile avatar trigger -->
-      <div
-        ref="profileBtnRef"
-        class="tb-profile cursor-pointer"
-        @click.stop="toggleProfile"
-      >
-        <RAvatar
-          :src="authStore.avatar || undefined"
-          :name="authStore.fullName"
-          size="s"
-          class="pointer-events-none"
-        />
-      </div>
     </div>
-
-    <!-- Dropdown — teleported to body to escape overflow:hidden on layout -->
-    <Teleport to="body">
-      <Transition name="tb-dropdown">
-        <div
-          v-if="profileOpen"
-          ref="dropdownRef"
-          class="tb-profile-dropdown"
-          :style="dropdownStyle"
-        >
-          <RLink to="/profile" @click.stop="profileOpen = false">
-            <div class="tb-dd__user-info">
-              <RAvatar
-                :src="authStore.avatar || undefined"
-                :name="authStore.fullName"
-                size="sm"
-                shape="circle"
-              />
-              <div>
-                <div class="tb-dd__uname">{{ authStore.fullName }}</div>
-                <div class="tb-dd__uemail">{{ authStore.user?.email }}</div>
-              </div>
-              <button
-                class="tb-dd__link tb-dd__link--danger"
-                @click.self="handleLogout"
-              >
-                <i class="ri-logout-box-r-line" /> {{ tr("sign_out") }}
-              </button>
-            </div>
-          </RLink>
-        </div>
-      </Transition>
-    </Teleport>
   </header>
 </template>
 
 <script setup>
-const { tr } = useTr();
 const { toggleMobile } = useSidebar();
-const authStore = useAuthStore();
 const themeStore = useThemeStore();
 const route = useRoute();
-const profileOpen = ref(false);
-const profileBtnRef = ref(null);
-const dropdownRef = ref(null);
-const dropdownStyle = ref({});
-const { tBy } = useSarikaLocale();
-const eventStore = useEventStore();
-const { liveStats, lastUpdated, start } = useLiveData();
-
 const hour = new Date().getHours();
 
 const greeting = computed(() => {
@@ -156,117 +69,8 @@ const greeting = computed(() => {
       : "Good Evening";
 });
 
-const greetingKm = computed(() => {
-  return hour < 12 ? "អរុណសួស្តី" : hour < 18 ? "ទិវាសួស្តី" : "សាយណ្ហសួស្តី";
-});
-
-const activeEvent = computed(() => {
-  return eventStore.activeEvent;
-});
-
-const daysLeft = computed(() => {
-  if (!activeEvent.value?.date) return null;
-  const diff = new Date(activeEvent.value.date) - new Date();
-  return Math.ceil(diff / (1000 * 60 * 60 * 24));
-});
-
-const isDashboard = computed(() => {
-  return route.path === "/dashboard" || route.meta.title === "Dashboard";
-});
-
-const pageTitle = computed(() => {
-  if (isDashboard.value) {
-    return tBy({
-      en: greeting.value,
-      km: greetingKm.value,
-    });
-  }
-
-  return String(route.path || "");
-});
-
-const pageDescription = computed(() => {
-  if (isDashboard.value) {
-    return activeEvent.value?.title || tr("events.no_event_selected");
-  }
-
-  return String(route.meta.description || "");
-});
-
-const lastUpdatedLabel = computed(() => {
-  if (!lastUpdated.value) return "";
-  return lastUpdated.value.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  });
-});
-
-const pageIcon = computed(() => {
-  return String(route.meta.icon || "");
-});
-
-const pageIconBg = computed(() => {
-  return String(route.meta.iconBg || "bg-gray-500");
-});
-
-const showBack = computed(() => {
-  return route.meta.showBack === true;
-});
-
 const goBack = () => {
   window.history.back();
-};
-
-const toggleProfile = () => {
-  if (!profileOpen.value) {
-    const rect = profileBtnRef.value?.getBoundingClientRect();
-    if (rect) {
-      dropdownStyle.value = {
-        position: "fixed",
-        top: `${rect.bottom + 8}px`,
-        right: `${window.innerWidth - rect.right}px`,
-        zIndex: "9999",
-      };
-    }
-  }
-
-  profileOpen.value = !profileOpen.value;
-};
-
-const handleClickOutside = (e) => {
-  if (!profileOpen.value) return;
-
-  const target = e.target;
-
-  if (profileBtnRef.value?.contains(target)) return;
-  if (dropdownRef.value?.contains(target)) return;
-
-  profileOpen.value = false;
-};
-
-onMounted(() => {
-  start();
-  document.addEventListener("click", handleClickOutside, true);
-});
-
-onUnmounted(() => {
-  document.removeEventListener("click", handleClickOutside, true);
-});
-
-/**
- * ----------------------------------------
- * Logout
- * ----------------------------------------
- */
-
-const handleLogout = async () => {
-  profileOpen.value = false;
-  authStore.clearAuth();
-
-  await navigateTo("/auth/login", {
-    replace: true,
-  });
 };
 </script>
 

@@ -21,7 +21,7 @@ function getLocalIp() {
 
 export default defineNuxtConfig({
   compatibilityDate: "2026-06-18",
-  future: { compatibilityVersion: 5 },
+  // future: { compatibilityVersion: 5 },
 
   modules: [
     "@nuxt/ui",
@@ -37,7 +37,7 @@ export default defineNuxtConfig({
   // devtools: process.env.NODE_ENV === "development" && false,
   devServer: {
     // host: '0.0.0.0',
-    port: 3000,
+    port: 3400,
   },
   components: [
     ...(getOwnerComponentPaths() ?? []),
@@ -88,9 +88,12 @@ export default defineNuxtConfig({
   },
 
   i18n: {
+      experimental: {
+    optimizeMessageBundling: false,
+  },
     lazy: true,
     langDir: "locales",
-    strategy: "no_prefix",   // all languages share the same URLs — dynamic switching only
+    strategy: "prefix",   // all languages share the same URLs — dynamic switching only
     defaultLocale: "en",
     locales: [
       {
@@ -354,6 +357,7 @@ export default defineNuxtConfig({
 
   // Add experimental features for better performance
   experimental: {
+    viteEnvironmentApi: false,
     optimizeDeps: true, // Enable for Nuxt 4
     resetAsyncData: true,
   },

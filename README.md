@@ -153,6 +153,8 @@ npm install vite@latest --save-dev
 npx nuxi@latest module add pinia
 
 npm install xlsx
+
+npm install --include=optional //Generate a fresh lock file and install everything
 ```
 
 

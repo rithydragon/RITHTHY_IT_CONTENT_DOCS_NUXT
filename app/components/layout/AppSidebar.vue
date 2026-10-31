@@ -12,7 +12,7 @@
     ═══════════════════════════════════════════════ -->
     <div class="cld-inner">
       <div class="cld-top flex justify-between items-center">
-        <RLink to="/" class="flex items-center gap-2">
+        <NuxtLink to="/" class="flex items-center gap-2">
           <div class="cld-workspace__avatar">
             <span class="cld-workspace__letter">W</span>
           </div>
@@ -21,7 +21,7 @@
               <span class="cld-workspace__name">{{ tr("app.name") }}</span>
             </div>
           </Transition>
-        </RLink>
+        </NuxtLink>
         <RTCustomTooltip
           v-if="!isCollapsed"
           :text="tr('collapse_sidebar')"
@@ -95,7 +95,7 @@
 
                 <Transition name="sidebar-expand">
                   <div v-show="openKeys.has(item.key)" class="cld-sub">
-                    <RLink
+                    <NuxtLink
                       v-for="child in item.children"
                       :key="child.key"
                       :to="child.to"
@@ -106,7 +106,7 @@
                       <span class="cld-sub__label">
                         {{ menuLabel(child) }}
                       </span>
-                    </RLink>
+                    </NuxtLink>
                   </div>
                 </Transition>
               </div>
@@ -128,7 +128,7 @@
                 leave-to-class="opacity-0 -translate-y-1"
                 name="cld-fade"
               >
-                <RLink
+                <NuxtLink
                   :to="item.to"
                   class="cld-item"
                   :class="{
@@ -139,7 +139,7 @@
                     <UIcon :name="item.icon!" class="cld-item__icon" />
                   </span>
                   <span class="cld-item__label">{{ menuLabel(item) }}</span>
-                </RLink>
+                </NuxtLink>
               </Transition>
             </RTCustomTooltip>
           </template>
@@ -165,7 +165,7 @@
                 leave-to-class="opacity-0 -translate-y-1"
                 name="cld-fade"
               >
-                <RLink
+                <NuxtLink
                   :to="item.to"
                   class="cld-item"
                   :class="{
@@ -176,7 +176,7 @@
                     <UIcon :name="item.icon!" class="cld-item__icon" />
                   </span>
                   <span class="cld-item__label">{{ menuLabel(item) }}</span>
-                </RLink>
+                </NuxtLink>
               </Transition>
             </RTCustomTooltip>
           </template>
@@ -403,7 +403,7 @@ const navigateTo = (path: string) => {
 
 const handleLogout = async () => {
   await authStore.logout();
-  router.push(localePath("/auth/login"));
+  router.push(localePath("/login"));
 };
 </script>
 
