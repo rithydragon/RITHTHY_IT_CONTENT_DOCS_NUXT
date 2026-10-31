@@ -4,9 +4,12 @@ import isNotEmpty from "../utils/isNotEmpty";
 import tBy from "../utils/tBy";
 import { rtydate } from "../utils/rtydate";
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { formatPhoneNumber } from "../utils/phoneNumberFornat";
 >>>>>>> d84b676 (New)
+=======
+>>>>>>> ef0d75b (Update error)
 import { convertToKhmerDate } from "../utils/dataConvert";
 import getUrl from "../utils/getUrl";
 import helper from "../utils/helper";
@@ -26,9 +29,12 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.provide("isNotEmpty", isNotEmpty);
   nuxtApp.provide("tBy", tBy);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   nuxtApp.provide("rtyPhoneNumberFormat", formatPhoneNumber);
 >>>>>>> d84b676 (New)
+=======
+>>>>>>> ef0d75b (Update error)
   nuxtApp.provide("rtydate", rtydate);
   nuxtApp.provide("getUrl", getUrl);
   nuxtApp.provide("helper", helper);

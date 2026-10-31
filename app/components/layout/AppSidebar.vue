@@ -13,10 +13,14 @@
     <div class="cld-inner">
       <div class="cld-top flex justify-between items-center">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <NuxtLink to="/" class="flex items-center gap-2">
 =======
         <RLink to="/" class="flex items-center gap-2">
 >>>>>>> d84b676 (New)
+=======
+        <NuxtLink to="/" class="flex items-center gap-2">
+>>>>>>> ef0d75b (Update error)
           <div class="cld-workspace__avatar">
             <span class="cld-workspace__letter">W</span>
           </div>
@@ -26,10 +30,14 @@
             </div>
           </Transition>
 <<<<<<< HEAD
+<<<<<<< HEAD
         </NuxtLink>
 =======
         </RLink>
 >>>>>>> d84b676 (New)
+=======
+        </NuxtLink>
+>>>>>>> ef0d75b (Update error)
         <RTCustomTooltip
           v-if="!isCollapsed"
           :text="tr('collapse_sidebar')"
@@ -104,10 +112,14 @@
                 <Transition name="sidebar-expand">
                   <div v-show="openKeys.has(item.key)" class="cld-sub">
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <NuxtLink
 =======
                     <RLink
 >>>>>>> d84b676 (New)
+=======
+                    <NuxtLink
+>>>>>>> ef0d75b (Update error)
                       v-for="child in item.children"
                       :key="child.key"
                       :to="child.to"
@@ -119,10 +131,14 @@
                         {{ menuLabel(child) }}
                       </span>
 <<<<<<< HEAD
+<<<<<<< HEAD
                     </NuxtLink>
 =======
                     </RLink>
 >>>>>>> d84b676 (New)
+=======
+                    </NuxtLink>
+>>>>>>> ef0d75b (Update error)
                   </div>
                 </Transition>
               </div>
@@ -145,10 +161,14 @@
                 name="cld-fade"
               >
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <NuxtLink
 =======
                 <RLink
 >>>>>>> d84b676 (New)
+=======
+                <NuxtLink
+>>>>>>> ef0d75b (Update error)
                   :to="item.to"
                   class="cld-item"
                   :class="{
@@ -160,10 +180,14 @@
                   </span>
                   <span class="cld-item__label">{{ menuLabel(item) }}</span>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 </NuxtLink>
 =======
                 </RLink>
 >>>>>>> d84b676 (New)
+=======
+                </NuxtLink>
+>>>>>>> ef0d75b (Update error)
               </Transition>
             </RTCustomTooltip>
           </template>
@@ -190,10 +214,14 @@
                 name="cld-fade"
               >
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <NuxtLink
 =======
                 <RLink
 >>>>>>> d84b676 (New)
+=======
+                <NuxtLink
+>>>>>>> ef0d75b (Update error)
                   :to="item.to"
                   class="cld-item"
                   :class="{
@@ -205,10 +233,14 @@
                   </span>
                   <span class="cld-item__label">{{ menuLabel(item) }}</span>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 </NuxtLink>
 =======
                 </RLink>
 >>>>>>> d84b676 (New)
+=======
+                </NuxtLink>
+>>>>>>> ef0d75b (Update error)
               </Transition>
             </RTCustomTooltip>
           </template>
@@ -436,10 +468,14 @@ const navigateTo = (path: string) => {
 const handleLogout = async () => {
   await authStore.logout();
 <<<<<<< HEAD
+<<<<<<< HEAD
   router.push(localePath("/login"));
 =======
   router.push(localePath("/auth/login"));
 >>>>>>> d84b676 (New)
+=======
+  router.push(localePath("/login"));
+>>>>>>> ef0d75b (Update error)
 };
 </script>
 

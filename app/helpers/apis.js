@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const api = {
   list:'/user/profile'
 =======
@@ -106,6 +107,10 @@ const api = {
     updateSettings: (data) => useHttp1('/user/settings', { method: 'PUT', body: data }),
   },
 >>>>>>> d84b676 (New)
+=======
+const api = {
+  list:'/user/profile'
+>>>>>>> ef0d75b (Update error)
 }
 
 

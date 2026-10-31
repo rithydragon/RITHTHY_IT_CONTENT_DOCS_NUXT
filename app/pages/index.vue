@@ -1,5 +1,6 @@
 <template>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 </template>
 <script setup>
@@ -32,96 +33,31 @@
         :active-event="activeEvent"
       />
     </section>
+=======
+>>>>>>> ef0d75b (Update error)
 
-    <section class="section">
-      <div class="two-col-grid">
-        <CeremonyProgress :active-event="activeEvent" />
-        <BudgetSummary :stats="liveStats" :active-event="activeEvent" />
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="two-col-grid">
-        <InvitationStats :stats="liveStats" />
-        <AttendanceOverview :stats="liveStats" :active-event="activeEvent" />
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="two-col-grid">
-        <RecentActivities />
-        <QuickActions />
-      </div>
-    </section>
-  </RWrapperPage>
 </template>
-
 <script setup>
-const { tr } = useTr();
-useHead({ title: tr("common.app_name") });
-definePageMeta({
-  layout: "navbar",
-  middleware: ["auth", "permission"],
-  title: "Dashboard",
-  description: "",
-  icon: "ri-dashboard-line",
-  iconBg: "bg-[var(--c-surface)]",
-});
-const eventStore = useEventStore();
-const { liveStats, start } = useLiveData();
-const activeEvent = computed(() => eventStore.activeEvent);
-const { init: eventInit } = useEventPage(() => {});
-onMounted(async () => {
-  await nextTick();
-  await eventInit();
-  start();
-});
+
 </script>
-
 <style lang="scss" scoped>
-.dashboard-page {
+.docs-layout {
   display: flex;
-  flex-direction: column;
-  gap: var(--sp-1);
-  @include lg {
-    gap: var(--sp-3);
+  min-height: 100vh;
+  background: var(--c-bg);
+
+  &__main {
+    flex: 1;
+    padding-inline: var(--sp-10);
+    min-width: 0;
+  }
+
+  &__toc {
+    width: 256px;
+    flex-shrink: 0;
   }
 }
-
-.two-col-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--sp-1);
-  @include lg {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--sp-3);
-  }
-}
-
-.action-group {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  flex-wrap: wrap;
-}
-
-.countdown-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 12px;
-  border-radius: var(--r-full);
-  background: rgba(249, 115, 22, 0.12);
-  border: 1px solid rgba(249, 115, 22, 0.25);
-  color: #f97316;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  &.urgent {
-    background: rgba(239, 68, 68, 0.12);
-    border-color: rgba(239, 68, 68, 0.25);
-    color: var(--c-danger);
-  }
-}
+<<<<<<< HEAD
 
 .live-chip {
   display: inline-flex;
@@ -151,3 +87,6 @@ onMounted(async () => {
 }
 </style>
 >>>>>>> d84b676 (New)
+=======
+</style>
+>>>>>>> ef0d75b (Update error)

@@ -22,10 +22,14 @@ function getLocalIp() {
 export default defineNuxtConfig({
   compatibilityDate: "2026-06-18",
 <<<<<<< HEAD
+<<<<<<< HEAD
   // future: { compatibilityVersion: 5 },
 =======
   future: { compatibilityVersion: 5 },
 >>>>>>> d84b676 (New)
+=======
+  // future: { compatibilityVersion: 5 },
+>>>>>>> ef0d75b (Update error)
 
   modules: [
     "@nuxt/ui",
@@ -42,10 +46,14 @@ export default defineNuxtConfig({
   devServer: {
     // host: '0.0.0.0',
 <<<<<<< HEAD
+<<<<<<< HEAD
     port: 3400,
 =======
     port: 3000,
 >>>>>>> d84b676 (New)
+=======
+    port: 3400,
+>>>>>>> ef0d75b (Update error)
   },
   components: [
     ...(getOwnerComponentPaths() ?? []),
@@ -97,6 +105,7 @@ export default defineNuxtConfig({
 
   i18n: {
 <<<<<<< HEAD
+<<<<<<< HEAD
       experimental: {
     optimizeMessageBundling: false,
   },
@@ -108,6 +117,14 @@ export default defineNuxtConfig({
     langDir: "locales",
     strategy: "no_prefix",   // all languages share the same URLs — dynamic switching only
 >>>>>>> d84b676 (New)
+=======
+      experimental: {
+    optimizeMessageBundling: false,
+  },
+    lazy: true,
+    langDir: "locales",
+    strategy: "prefix",   // all languages share the same URLs — dynamic switching only
+>>>>>>> ef0d75b (Update error)
     defaultLocale: "en",
     locales: [
       {
@@ -372,9 +389,13 @@ export default defineNuxtConfig({
   // Add experimental features for better performance
   experimental: {
 <<<<<<< HEAD
+<<<<<<< HEAD
     viteEnvironmentApi: false,
 =======
 >>>>>>> d84b676 (New)
+=======
+    viteEnvironmentApi: false,
+>>>>>>> ef0d75b (Update error)
     optimizeDeps: true, // Enable for Nuxt 4
     resetAsyncData: true,
   },
