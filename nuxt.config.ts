@@ -39,7 +39,7 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   // devtools: process.env.NODE_ENV === "development" && false,
   devServer: {
-    port: 3000,
+    port: 4000,
     host: "0.0.0.0",
     https: {
       key: "./certs/localhost-key.pem",
@@ -99,6 +99,10 @@ export default defineNuxtConfig({
     "/": { prerender: true },
   },
 
+    experimental: {
+    viteEnvironmentApi: false
+  },
+
   i18n: {
     lazy: true,
     langDir: "locales",
@@ -120,6 +124,10 @@ export default defineNuxtConfig({
         flag: "/flags/kh.svg",
       },
     ],
+experimental: {
+      optimizeMessageBundling: false,
+      nitroContextDetection: false
+    },
     detectBrowserLanguage: false, // we manage language via db_lang cookie ourselves
     compilation: {
       strictMessage: false,
