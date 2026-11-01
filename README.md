@@ -156,6 +156,8 @@ npm install xlsx
 #New
 npm install vue-grid-layout-v3 --save
 npx nuxi module add echarts
+
+npm uninstall vue-router // uninstall because conflict with Nuxt Router
 ```
 
 

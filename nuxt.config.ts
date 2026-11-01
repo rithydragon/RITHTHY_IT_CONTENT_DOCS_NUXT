@@ -1,6 +1,6 @@
 import getOwnerComponentPaths from "./app/utils/getComponentPaths";
-import NUXT_MODULE from "../NUXT_MODULES/WEBAPP_NUXT_MODULE/src/module";
-import getComponentPaths from "../NUXT_MODULES/WEBAPP_NUXT_MODULE/src/runtime/app/utils/getComponentPaths";
+import NUXT_MODULE from "../NUXT_MODULES/ANGKOR-X_WEBAPP_NUXT_MODULE/src/module";
+import getComponentPaths from "../NUXT_MODULES/ANGKOR-X_WEBAPP_NUXT_MODULE/src/runtime/app/utils/getComponentPaths";
 import { resolve } from "node:path";
 // import { resolve } from "pathe"
 // nuxt.config.ts
@@ -26,11 +26,11 @@ export default defineNuxtConfig({
 
   modules: [
     "@nuxt/ui",
-    "@nuxtjs/i18n",
     "@nuxt/eslint",
     "@vueuse/nuxt",
     "@pinia/nuxt",
     "@nuxt/content",
+    '@nuxtjs/i18n',
     NUXT_MODULE,
     "nuxt-echarts",
   ],
@@ -248,10 +248,10 @@ export default defineNuxtConfig({
         "@nuxt/ui > prosemirror-gapcursor",
         "@nuxt/ui > prosemirror-keymap",
 
-        // AI / Completion
-        "@ai-sdk/gateway",
-        "@ai-sdk/vue",
-        "@ai-sdk/provider-utils",
+        // // AI / Completion
+        // "@ai-sdk/gateway",
+        // "@ai-sdk/vue",
+        // "@ai-sdk/provider-utils",
 
         "axios",
         "pinia",
@@ -275,7 +275,7 @@ export default defineNuxtConfig({
     },
     server: {
       fs: {
-        allow: [resolve(__dirname, "../NUXT_MODULES/WEBAPP_NUXT_MODULE")],
+        allow: [resolve(__dirname, "../NUXT_MODULES/ANGKOR-X_WEBAPP_NUXT_MODULE")],
       },
     },
     // plugins: [
