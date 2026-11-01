@@ -1,18 +1,4 @@
 <template>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> ef0d75b (Update error)
-  <div ref="wrapperEl" class="rt-tooltip-wrapper" @mouseenter="show" @mouseleave="onTriggerLeave">
-    <div
-      ref="wrapperEl"
-      class="rt-tooltip-wrapper"
-      @mouseenter="onTriggerEnter"
-      @mouseleave="onTriggerLeave"
-      > <slot />
-    </div>
-<<<<<<< HEAD
-=======
   <div
     ref="wrapperEl"
     class="rt-tooltip-wrapper"
@@ -23,9 +9,6 @@
     <slot name="trigger">
       <slot />
     </slot>
->>>>>>> d84b676 (New)
-=======
->>>>>>> ef0d75b (Update error)
     <Teleport to="body">
       <Transition name="tooltip">
         <div
@@ -37,11 +20,6 @@
           @mouseenter="onTooltipEnter"
           @mouseleave="onTooltipLeave"
         >
-<<<<<<< HEAD
-<<<<<<< HEAD
-          <!-- Simple label tooltip -->
-          <template v-if="!children || children.length === 0">
-=======
           <!-- <slot>
             <span class="rt-tooltip__label">
               {{ text }}
@@ -54,11 +32,6 @@
 
           <!-- Simple label tooltip -->
           <template v-if=" !children || children.length === 0">
->>>>>>> d84b676 (New)
-=======
-          <!-- Simple label tooltip -->
-          <template v-if="!children || children.length === 0">
->>>>>>> ef0d75b (Update error)
             <span class="rt-tooltip__label">{{ text }}</span>
           </template>
 
@@ -66,36 +39,15 @@
           <template v-else>
             <div class="rt-tooltip__menu">
               <p class="rt-tooltip__menu-title">{{ text }}</p>
-<<<<<<< HEAD
-<<<<<<< HEAD
-              <RLink
-                v-for="child in children"
-                :key="child.key"
-                :to="child.to"
-                class="rt-tooltip__menu-item"
-                @click="hide"
-              >
-                {{ child.label }}
-              </RLink>
-=======
               <NuxtLink
-=======
-              <RLink
->>>>>>> ef0d75b (Update error)
                 v-for="child in children"
                 :key="child.key"
-                :to="child.to"
+                :to="localePath(child.to)"
                 class="rt-tooltip__menu-item"
                 @click="hide"
               >
-<<<<<<< HEAD
                 {{ tr(child.label) }}
               </NuxtLink>
->>>>>>> d84b676 (New)
-=======
-                {{ child.label }}
-              </RLink>
->>>>>>> ef0d75b (Update error)
             </div>
           </template>
         </div>
@@ -104,27 +56,14 @@
   </div>
 </template>
 <script setup lang="ts">
-<<<<<<< HEAD
-<<<<<<< HEAD
-import type { MenuItem } from '~/types/navigation'
-
-const props = defineProps<{
-  text: string
-  children?: MenuItem[]
-}>()
-
-=======
 const { tr } = useTr()
-=======
->>>>>>> ef0d75b (Update error)
 import type { MenuItem } from '~/types/navigation'
 
-const props = defineProps<{
-  text: string
-  children?: MenuItem[]
-}>()
+// Was referenced in the template (`localePath(child.to)`) but never defined —
+// that's a ReferenceError the instant any tooltip with `children` renders.
+// Matches the same no-prefix fallback used in AppSidebar.vue.
+const localePath = (path?: string) => path ?? '/'
 
-<<<<<<< HEAD
 const props = withDefaults(
   defineProps<{
     text?: string,
@@ -140,9 +79,6 @@ const props = withDefaults(
     isCollapsible: true
   }
 )
->>>>>>> d84b676 (New)
-=======
->>>>>>> ef0d75b (Update error)
 const visible = ref(false)
 
 const tooltipEl = ref<HTMLElement | null>(null)
@@ -171,17 +107,6 @@ const updatePosition = () => {
 
   const rect = wrapperEl.value.getBoundingClientRect()
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> ef0d75b (Update error)
-  tooltipStyle.value = {
-    top: `${rect.top + rect.height / 2}px`,
-    left: `${rect.right + 10}px`,
-    transform: 'translateY(-50%)'
-<<<<<<< HEAD
-  }
-=======
   const position = props.positions[0]
 
   const style: Record<string, string> = {
@@ -218,10 +143,6 @@ const updatePosition = () => {
   }
 
   tooltipStyle.value = style
->>>>>>> d84b676 (New)
-=======
-  }
->>>>>>> ef0d75b (Update error)
 }
 
 const show = async () => {
@@ -246,15 +167,7 @@ const hide = () => {
 
 const onTriggerEnter = () => {
   isHoveringTrigger.value = true
-<<<<<<< HEAD
-<<<<<<< HEAD
-  show()
-=======
   if(!props.isCollapsible) return show()
->>>>>>> d84b676 (New)
-=======
-  show()
->>>>>>> ef0d75b (Update error)
 }
 
 const onTriggerLeave = () => {
@@ -267,16 +180,10 @@ const onTriggerLeave = () => {
 
   hide()
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 const toggle = () => {
   visible.value ? hide() : show()
 }
 
->>>>>>> d84b676 (New)
-=======
->>>>>>> ef0d75b (Update error)
 
 const onTooltipEnter = () => {
   isHoveringTooltip.value = true
@@ -287,13 +194,7 @@ const onTooltipLeave = () => {
   isHoveringTooltip.value = false
   hide()
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
->>>>>>> d84b676 (New)
-=======
->>>>>>> ef0d75b (Update error)
 </script>
 
 <style lang="scss">
@@ -377,12 +278,4 @@ const onTooltipLeave = () => {
   opacity: 0;
   transform: translateY(-50%) translateX(-6px) !important;
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
 </style>
-=======
-</style>
->>>>>>> d84b676 (New)
-=======
-</style>
->>>>>>> ef0d75b (Update error)

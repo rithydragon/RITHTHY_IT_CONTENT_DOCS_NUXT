@@ -15,29 +15,14 @@
       <!-- Dynamic Page Header -->
       <div class="flex items-center gap-3">
         <div
-<<<<<<< HEAD
-<<<<<<< HEAD
-          class="flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-lg"
-        >
-          <i class="ri-home-line text-xl text-[var(--c-text)]" />
-        </div>
-
-        <div class="flex gap-0.5 min-w-0 flex-col">
-          <span class="countdown-badge">
-            <i class="ri-calendar-event-line" />
-            {{ $t("docs.name") }}
-          </span>
-=======
           v-if="pageIcon"
-=======
->>>>>>> ef0d75b (Update error)
           class="flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-lg"
+          :class="pageIconBg"
         >
-          <i class="ri-home-line text-xl text-[var(--c-text)]" />
+          <i :class="pageIcon" class="text-xl text-[var(--c-text)]" />
         </div>
 
         <div class="flex gap-0.5 min-w-0 flex-col">
-<<<<<<< HEAD
           <h5 class="text-[10px] font-bold leading-5">
             {{ tr(pageTitle) }} {{ tr(pageDescription) }}
           </h5>
@@ -70,13 +55,6 @@
               Live · {{ lastUpdatedLabel }}
             </span>
           </div>
->>>>>>> d84b676 (New)
-=======
-          <span class="countdown-badge">
-            <i class="ri-calendar-event-line" />
-            {{ $t("docs.name") }}
-          </span>
->>>>>>> ef0d75b (Update error)
         </div>
       </div>
     </div>
@@ -103,10 +81,6 @@
 
       <!-- Language -->
       <LanguageSwitcher />
-<<<<<<< HEAD
-<<<<<<< HEAD
-    </div>
-=======
 
       <!-- Profile avatar trigger -->
       <div
@@ -155,27 +129,15 @@
         </div>
       </Transition>
     </Teleport>
->>>>>>> d84b676 (New)
-=======
-    </div>
->>>>>>> ef0d75b (Update error)
   </header>
 </template>
 
 <script setup>
-<<<<<<< HEAD
-<<<<<<< HEAD
-const { toggleMobile } = useSidebar();
-const themeStore = useThemeStore();
-const route = useRoute();
-=======
 const { tr } = useTr();
-=======
->>>>>>> ef0d75b (Update error)
 const { toggleMobile } = useSidebar();
+const authStore = useAuthStore();
 const themeStore = useThemeStore();
 const route = useRoute();
-<<<<<<< HEAD
 const profileOpen = ref(false);
 const profileBtnRef = ref(null);
 const dropdownRef = ref(null);
@@ -184,9 +146,6 @@ const { tBy } = useSarikaLocale();
 const eventStore = useEventStore();
 const { liveStats, lastUpdated, start } = useLiveData();
 
->>>>>>> d84b676 (New)
-=======
->>>>>>> ef0d75b (Update error)
 const hour = new Date().getHours();
 
 const greeting = computed(() => {
@@ -197,12 +156,6 @@ const greeting = computed(() => {
       : "Good Evening";
 });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-const goBack = () => {
-  window.history.back();
-};
-=======
 const greetingKm = computed(() => {
   return hour < 12 ? "អរុណសួស្តី" : hour < 18 ? "ទិវាសួស្តី" : "សាយណ្ហសួស្តី";
 });
@@ -315,12 +268,6 @@ const handleLogout = async () => {
     replace: true,
   });
 };
->>>>>>> d84b676 (New)
-=======
-const goBack = () => {
-  window.history.back();
-};
->>>>>>> ef0d75b (Update error)
 </script>
 
 <style lang="scss" scoped>

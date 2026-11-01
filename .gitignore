@@ -22,11 +22,3 @@ logs
 .env
 .env.*
 !.env.example
-<<<<<<< HEAD
-
-# Credentials
-service-account*.json
-*.pem
-*.key
-=======
->>>>>>> d84b676 (New)

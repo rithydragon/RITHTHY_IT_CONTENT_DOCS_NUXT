@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-const api = {
-  list:'/user/profile'
-=======
 // helpers/api.js — Central API helper using useHttp1 composable
 
 import { useHttp1 } from '~/composables/useHttp'
@@ -106,11 +101,6 @@ const api = {
     uploadAvatar: (formData) => useHttp1('/user/avatar', { method: 'POST', body: formData }),
     updateSettings: (data) => useHttp1('/user/settings', { method: 'PUT', body: data }),
   },
->>>>>>> d84b676 (New)
-=======
-const api = {
-  list:'/user/profile'
->>>>>>> ef0d75b (Update error)
 }
 
 
