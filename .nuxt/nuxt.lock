@@ -1,0 +1,11 @@
+{
+  "pid": 28032,
+  "startedAt": 1793428450551,
+  "interactive": true,
+  "command": "dev",
+  "cwd": "D:/1_RITHY/1_PROJECT PROGRAMMING/PROJECTS/OFFICIAL PROJECT/NUXT/RITHTHY_IT_CONTENT_DOCS_NUXT",
+  "parentPid": 27752,
+  "port": 3400,
+  "hostname": "::",
+  "url": "http://localhost:3400"
+}
